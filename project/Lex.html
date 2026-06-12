@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lex — Pipeline & Job</title>
+
+<!-- Lex design system -->
+<link rel="stylesheet" href="lex/fonts.css" />
+<link rel="stylesheet" href="lex/colors_and_type.css" />
+<link rel="stylesheet" href="lex/lex.css" />
+
+<!-- React + Babel (pinned) -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  html, body { margin: 0; padding: 0; }
+  #lex-root { min-height: 100vh; }
+  /* commit-node hover tooltip */
+  .lex-commit:hover .lex-commit__tip { opacity: 1 !important; }
+  .lex-commit:hover span:first-child { filter: brightness(0.94); }
+  .lex-lane:hover .lex-lane__label { background: var(--elevated); }
+  .lex-lane__label { border-radius: 8px; transition: background 180ms var(--ease-soft); }
+  ::-webkit-scrollbar { height: 10px; width: 10px; }
+  ::-webkit-scrollbar-thumb { background: var(--hairline-2); border-radius: 999px; border: 3px solid var(--bg); }
+  ::-webkit-scrollbar-track { background: transparent; }
+</style>
+</head>
+<body class="lex">
+<div id="lex-root"></div>
+
+<!-- hooks as globals (each Babel script is its own scope) -->
+<script>
+  window.useState = React.useState;
+  window.useEffect = React.useEffect;
+  window.useRef = React.useRef;
+  window.useMemo = React.useMemo;
+  window.useCallback = React.useCallback;
+</script>
+
+<!-- data (plain JS) -->
+<script src="lex/data.js"></script>
+
+<!-- components (JSX) -->
+<script type="text/babel" src="lex/atoms.jsx"></script>
+<script type="text/babel" src="lex/widgets.jsx"></script>
+<script type="text/babel" src="lex/Rail.jsx"></script>
+<script type="text/babel" src="lex/Dashboard.jsx"></script>
+<script type="text/babel" src="lex/Pipeline.jsx"></script>
+<script type="text/babel" src="lex/JobPage.jsx"></script>
+<script type="text/babel" src="lex/JobDeliverables.jsx"></script>
+<script type="text/babel" src="lex/ReviewRail.jsx"></script>
+<script type="text/babel" src="lex/ABLab.jsx"></script>
+<script type="text/babel" src="lex/Pages.jsx"></script>
+<script type="text/babel" src="lex/App.jsx"></script>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" rx="20" fill="#7C4E93"/>
+    <g transform="translate(30 30)" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round">
+      <line x1="3" y1="2" x2="3" y2="38"/><circle cx="3" cy="38" r="4" fill="#fff" stroke="none"/>
+      <circle cx="3" cy="2" r="4" fill="#fff" stroke="none"/><circle cx="37" cy="10" r="4" fill="#6FA89B" stroke="none"/>
+      <path d="M3 10 C3 10 37 6 37 10"/>
+    </g>
+  </svg>
+</template>
+</body>
+</html>

@@ -1,0 +1,217 @@
+/* ============================================================
+   LEX DESIGN SYSTEM — Token layer
+   Source of truth for color, type, spacing, radius, shadow, motion.
+   Tokens are decisions made once. Components reference these,
+   never raw values. Pages compose components, not styles.
+   ============================================================ */
+
+/* Fonts loaded from Google Fonts (see fonts.css / @import in consumers).
+   Inter = display + body, Geist Mono = structural labels, Newsreader = editorial serif. */
+
+:root {
+  /* ---------------------------------------------------------
+     COLOR — Surfaces
+     Layered system: bg -> bg-2 -> surface -> elevated.
+     Cool off-white, low contrast. Don't add a 5th layer; use shadow.
+     --------------------------------------------------------- */
+  --bg:           #FBFCFD;   /* Page background — lowest layer */
+  --bg-2:         #F3F5FA;   /* Recessed background (alternating sections) */
+  --surface:      #FFFFFF;   /* Cards, popovers, modal sheets */
+  --elevated:     #F5F7FB;   /* Hover states, subtle group containers */
+  --hairline:     #DDE2EB;   /* Default borders — always 1px */
+  --hairline-2:   #BAC2D1;   /* Stronger borders — emphasis, focused inputs */
+
+  /* ---------------------------------------------------------
+     COLOR — Pastels (board-deck soft hues + paired ink)
+     Surface accents only. Never carry signal meaning.
+     Always use a pastel with its paired ink.
+     --------------------------------------------------------- */
+  --past-blue:    #E5EAF2;   --past-blue-ink:   #2D4179;
+  --past-lilac:   #E7E5EE;   --past-lilac-ink:  #4F4282;
+  --past-mint:    #E2E8E2;   --past-mint-ink:   #3C6B4D;
+  --past-peach:   #ECE4D8;   --past-peach-ink:  #804320;
+  --past-sky:     #E0E7ED;   --past-sky-ink:    #205A74;
+  --past-sand:    #E8E2D2;   --past-sand-ink:   #735914;
+  --past-blush:   #ECDFE0;   --past-blush-ink:  #82384F;
+
+  /* ---------------------------------------------------------
+     COLOR — Ink (text + iconography). Four-step ramp.
+     Body defaults to --ink at 13px.
+     --------------------------------------------------------- */
+  --ink:    #14213D;   /* Primary text, headings, key icons */
+  --ink-2:  #2C3B58;   /* Secondary text, dense-layout body */
+  --muted:  #5C6B82;   /* Labels, metadata, inactive nav */
+  --faint:  #95A1B6;   /* Microcopy, mono eyebrows, low-priority counters */
+
+  /* ---------------------------------------------------------
+     COLOR — Plum (primary accent). The signature deep, muted purple.
+     Load-bearing. At most one --plum element per visible region.
+     (Formerly named "terra" — renamed so the token names its hue honestly.)
+     --------------------------------------------------------- */
+  --plum:        #7C4E93;   /* Primary CTA bg, brand accent, focus ring stroke */
+  --plum-2:      #6B3F82;   /* Hover state of primary buttons */
+  --plum-3:      #522E64;   /* Deepest — text on --plum-soft, badges (sparingly) */
+  --plum-soft:   #F0E9F4;   /* Primary-tinted backgrounds, focus glow, spills */
+  --plum-soft-2: #DCCBE6;   /* Stronger soft variant for emphasis */
+
+  /* ---------------------------------------------------------
+     COLOR — Grape (secondary). The deepest purple in the system.
+     Chart contrast, dark chrome, deepest emphasis.
+     --------------------------------------------------------- */
+  --grape:       #322456;
+  --grape-2:     #443573;
+  --grape-soft:  #DAD4E8;
+
+  /* ---------------------------------------------------------
+     COLOR — Amber (tertiary). Despite the name, a muted teal-mint.
+     Tertiary chart series, gradient bookends, rare "third option".
+     --------------------------------------------------------- */
+  --amber:      #6FA89B;
+  --amber-soft: #D9E8E2;
+
+  /* Lex signature brand gradient — identity surfaces only (avatars, glyphs). */
+  --grad-brand: linear-gradient(135deg, var(--plum) 0%, var(--amber) 100%);
+
+  /* ---------------------------------------------------------
+     COLOR — Semantic. Use ONLY for meaning. Dialled-down on purpose.
+     --------------------------------------------------------- */
+  --success:      #5B8F6B;   --success-soft: #DDE9DD;
+  --danger:       #B05A52;   --danger-soft:  #F0DCD8;
+  --warning:      #B58A3A;   --warning-soft: #F2E9C9;
+
+  /* ---------------------------------------------------------
+     TYPOGRAPHY — Font stacks
+     --------------------------------------------------------- */
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-sans:    'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono:    'Geist Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-serif:   'Newsreader', 'Lora', Georgia, serif;
+
+  /* TYPOGRAPHY — Weights */
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;   /* default for buttons, nav items */
+  --weight-semibold: 600;   /* H3–H6, badge text, active states */
+  --weight-bold:     700;   /* H1, H2, brand wordmark */
+
+  /* TYPOGRAPHY — Type scale (size / paired line-height) */
+  --text-xs:   12px;   --lh-xs:   16px;
+  --text-sm:   14px;   --lh-sm:   24px;
+  --text-base: 16px;   --lh-base: 24px;
+  --text-lg:   18px;   --lh-lg:   24px;
+  --text-xl:   20px;   --lh-xl:   32px;
+  --text-2xl:  24px;   --lh-2xl:  32px;
+  --text-3xl:  28px;   --lh-3xl:  40px;
+  --text-4xl:  32px;   --lh-4xl:  40px;
+  --text-5xl:  40px;   --lh-5xl:  56px;
+  --text-6xl:  48px;   --lh-6xl:  56px;
+  --text-7xl:  56px;   --lh-7xl:  64px;
+  --text-8xl:  64px;   --lh-8xl:  72px;
+
+  /* ---------------------------------------------------------
+     SPACING — base unit 4px
+     --------------------------------------------------------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;   /* default stack/row gap */
+  --space-4:  16px;   /* default grid gap */
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  28px;
+  --space-8:  32px;
+  --space-10: 40px;   /* page gutter */
+  --card-pad: 28px 30px;  /* asymmetric — slightly more horizontal */
+
+  /* ---------------------------------------------------------
+     RADIUS — three values, full stop
+     --------------------------------------------------------- */
+  --radius-card:  12px;   /* cards, popovers, modals, large containers */
+  --radius-input: 8px;    /* buttons, inputs, badges (non-pill), tabs */
+  --radius-pill:  999px;  /* pills, chips, capsule UI */
+
+  /* ---------------------------------------------------------
+     SHADOW — cool deep-tinted black, dialled back to hairline + lift
+     --------------------------------------------------------- */
+  --shadow-1:     0 1px 1px rgba(15,27,46,0.025);
+  --shadow-2:     0 1px 2px rgba(15,27,46,0.030);
+  --shadow-hover: 0 1px 2px rgba(15,27,46,0.025), 0 4px 10px rgba(15,27,46,0.040);
+  --shadow-pop:   0 1px 2px rgba(15,27,46,0.040), 0 12px 28px -8px rgba(15,27,46,0.10);
+
+  /* ---------------------------------------------------------
+     MOTION — easing curves. Durations expressed inline (140 / 220-240 / 360 ms).
+     --------------------------------------------------------- */
+  --ease:      cubic-bezier(0.32, 0.72, 0.24, 1);   /* standard */
+  --ease-out:  cubic-bezier(0.22, 1,    0.36, 1);   /* entrances, popovers */
+  --ease-soft: cubic-bezier(0.4,  0,    0.2,  1);   /* cards + buttons */
+}
+
+/* ============================================================
+   SEMANTIC TYPE — element-level defaults.
+   Apply via the .lex scope or globally in consumers.
+   ============================================================ */
+
+.lex, body.lex {
+  font-family: var(--font-sans);
+  font-size: 13px;                       /* Lex body is 13px — dense analytics surface */
+  line-height: 1.5;
+  letter-spacing: -0.011em;
+  font-feature-settings: 'ss01','cv11';  /* Inter stylistic alternates */
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings — Leaf-style structural scale. Tracking tightens as size grows.
+   All use --font-display, color --ink, balanced wrap, zero margin. */
+.lex h1, .lex h2, .lex h3, .lex h4, .lex h5, .lex h6 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  text-wrap: balance;
+  margin: 0;
+}
+.lex h1 { font-size: var(--text-5xl); line-height: var(--lh-5xl); font-weight: var(--weight-bold);     letter-spacing: -0.032em; }
+.lex h2 { font-size: var(--text-4xl); line-height: var(--lh-4xl); font-weight: var(--weight-bold);     letter-spacing: -0.028em; }
+.lex h3 { font-size: var(--text-3xl); line-height: var(--lh-3xl); font-weight: var(--weight-semibold); letter-spacing: -0.024em; }
+.lex h4 { font-size: var(--text-2xl); line-height: var(--lh-2xl); font-weight: var(--weight-semibold); letter-spacing: -0.020em; }
+.lex h5 { font-size: var(--text-xl);  line-height: var(--lh-xl);  font-weight: var(--weight-semibold); letter-spacing: -0.016em; }
+.lex h6 { font-size: var(--text-lg);  line-height: var(--lh-lg);  font-weight: var(--weight-semibold); letter-spacing: -0.012em; }
+
+.lex p { margin: 0; color: var(--ink); }
+
+/* Body weights */
+.text-secondary { color: var(--ink-2); }
+.text-muted     { color: var(--muted); }
+.text-faint     { color: var(--faint); }
+
+/* Mono — the structural voice. Uppercase, positive tracking. */
+.mono {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-weight: var(--weight-medium);
+}
+.eyebrow {     /* eyebrow metadata */
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  font-weight: var(--weight-medium);
+}
+.label-mono {  /* card titles / structural labels */
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: var(--weight-semibold);
+}
+.crumb {       /* breadcrumbs */
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+/* Editorial serif — rare. */
+.serif { font-family: var(--font-serif); }
